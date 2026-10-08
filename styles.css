@@ -1,0 +1,963 @@
+/* PhonePe Invest — landing page
+   Built from Figma "PhonePe-Invest", frame 171:9966 (1440 × 11033).
+
+   Desktop: every section is a 1440px "frame" and its children are placed at the
+   exact Figma coordinates via --x / --y (relative to the section's top-left).
+   768–1439px: the whole 1440 composition is scaled to fit (--fit, set in <head>).
+   <768px: sections stack into a single column. */
+
+:root {
+  --navy-900: #03081a;
+  --navy-800: #0a1f44;
+  --blue-700: #004bb0;
+  --blue-600: #005ecc;
+  --blue-400: #2e8bff;
+  --lime: #def517;
+  --ink: #0a1f44;
+  --ink-2: #4a5b78;
+  --ink-3: #6b7a94;
+  --ink-4: #8a99b2;
+  --line: #dce5f0;
+  --pill: #f2f9ff;
+  --chip-bg: rgba(202, 229, 255, 0.25);
+  --white: #ffffff;
+
+  --grad-hero: linear-gradient(180deg, var(--navy-900) 0%, var(--navy-800) 48.3%, var(--blue-700) 91.5%, var(--blue-400) 127.1%);
+  --grad-beam: linear-gradient(180deg, var(--blue-400) 0%, var(--blue-700) 28%, var(--navy-800) 62%, var(--navy-900) 100%);
+  --grad-dark: linear-gradient(180deg, var(--navy-900) 0%, var(--navy-800) 60%, var(--blue-700) 100%);
+
+  --font: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --frame: 1440px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.page { position: relative; zoom: var(--fit, 1); }
+
+img { display: block; max-width: none; }
+a { color: inherit; text-decoration: none; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4, p { margin: 0; font-weight: inherit; }
+button, input { font: inherit; }
+
+/* A 1440-wide section; children with .pos sit at Figma coordinates */
+.frame {
+  position: relative;
+  width: var(--frame);
+  margin-inline: auto;
+}
+.pos {
+  position: absolute;
+  left: var(--x, 0);
+  top: var(--y, 0);
+  width: var(--w, auto);
+}
+
+/* ---------- Column hairlines (174:11189) ---------- */
+.column-grid {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: var(--frame);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.column-grid span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(10, 31, 68, 0.07);
+}
+.column-grid span:nth-child(1) { left: 85px; }
+.column-grid span:nth-child(2) { left: 477px; }
+.column-grid span:nth-child(3) { left: 963px; }
+.column-grid span:nth-child(4) { left: 1362px; }
+
+header, main, footer { position: relative; }
+
+/* ---------- Type ---------- */
+.display-64 { font-weight: 300; font-size: 64px; line-height: 64px; letter-spacing: -1.92px; color: var(--ink); }
+.display-56 { font-weight: 300; font-size: 56px; line-height: 64px; letter-spacing: -1.68px; color: var(--ink); }
+.display-56--white { color: var(--white); line-height: 60px; letter-spacing: -2.2px; }
+.display-56--dim { color: rgba(255, 255, 255, 0.62); line-height: 60px; letter-spacing: -2.2px; }
+.display-48 { font-weight: 300; font-size: 48px; line-height: 56px; letter-spacing: -1.44px; color: var(--ink); }
+.display-48--white { color: var(--white); }
+.lead-24 { font-weight: 300; font-size: 24px; line-height: 32px; letter-spacing: -0.24px; color: var(--ink); }
+.body-16 { font-size: 16px; line-height: 24px; color: var(--ink-2); }
+.note { font-size: 14px; line-height: 24px; color: var(--ink-3); }
+.fineprint { font-size: 12px; line-height: 16px; color: var(--ink-4); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 24px;
+  background: var(--chip-bg);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.48px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.chip--dark {
+  background: rgba(202, 229, 255, 0.1);
+  color: var(--lime);
+  font-weight: 600;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+.btn--white { background: var(--white); color: var(--ink); }
+.btn--white:hover { box-shadow: 0 6px 20px rgba(0, 13, 51, 0.25); }
+.btn--outline { border-color: var(--white); color: var(--white); background: transparent; }
+.btn--outline:hover { background: rgba(255, 255, 255, 0.08); }
+.btn--lime { background: var(--lime); color: var(--ink); border: 0; }
+.btn--lime:hover { background: #d2e90f; }
+.btn--nav { width: 136px; height: 48px; border-radius: 24px; font-size: 14px; line-height: 24px; }
+.btn--lg { width: 200px; height: 56px; padding: 12px 34px; border-radius: 40px; font-size: 16px; line-height: 24px; }
+.btn--block { width: 100%; height: 56px; border-radius: 28px; font-size: 16px; }
+
+/* ---------- Logo (3-part SVG lockup) ---------- */
+.logo { position: relative; display: block; width: 116.95px; height: 40px; flex: none; }
+.logo img { position: absolute; }
+.logo__mark { left: 0; top: 0; }
+.logo__top { left: 51.26px; top: 4.48px; }
+.logo__bottom { left: 51.26px; top: 21.72px; }
+.logo--footer { width: 178.21px; height: 60.95px; }
+.logo--footer .logo__top { left: 78.11px; top: 6.81px; }
+.logo--footer .logo__bottom { left: 78.11px; top: 33.1px; }
+
+/* ---------- Beam + connectors (shared by Analyser & Solutions) ---------- */
+.beam {
+  width: 486px;
+  height: var(--h);
+  border-radius: 243px;
+}
+.beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--grad-beam);
+  clip-path: inset(0 0 calc((1 - var(--reveal, 1)) * 100%) 0 round 243px);
+}
+
+/* 174:11235 — 1px line at 35% blue; a solid dot on the text end, a ring on the column end.
+   Dots are 10px with a 2px inside stroke, exactly as in Figma. */
+.connector {
+  height: 1px;
+  background: rgba(0, 94, 204, 0.35);
+  z-index: 2;
+}
+.connector::before,
+.connector::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  background: var(--blue-600);
+}
+.connector::before { left: -5px; }
+.connector::after { right: -5px; border-color: var(--blue-600); background: var(--white); }
+.connector--right::before { border-color: var(--blue-600); background: var(--white); }
+.connector--right::after { border-color: var(--white); background: var(--blue-600); }
+
+/* =========================================================
+   01 Hero (171:9969)
+   ========================================================= */
+.hero {
+  position: relative;
+  height: 950px;
+  overflow: hidden;
+  /* 171:10087 grain (20%, overlay, rotated 180°) baked into a pre-faded tile: painted once, no live blending */
+  background:
+    url("assets/hero-texture-20.png") 80.8px 298.8px / 340.55px 340.55px repeat,
+    var(--grad-hero);
+  background-blend-mode: overlay, normal;
+  color: var(--white);
+}
+
+.nav {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--frame);
+  height: 96px;
+  margin-inline: auto;
+  padding: 24px 80px;
+}
+.nav__right { display: flex; align-items: center; gap: 40px; }
+.nav__links { display: flex; gap: 40px; font-size: 14px; line-height: 24px; color: rgba(255, 255, 255, 0.72); }
+.nav__links a:hover { color: var(--white); }
+
+.hero__copy {
+  position: absolute;
+  top: 176px;
+  left: calc(50% - 481px);
+  width: 962px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 2;
+}
+.hero__title { font-weight: 300; font-size: 64px; line-height: 64px; letter-spacing: -2.56px; }
+.hero__title .dim { color: rgba(255, 255, 255, 0.62); }
+.hero__title .line { display: block; overflow: hidden; padding: 0.14em 0 0.2em; margin: -0.14em 0 -0.2em; }
+.hero__title .line > span { display: inline-block; }
+.rotator { position: relative; display: inline-block; white-space: nowrap; color: var(--lime); }
+.rotator__word { display: inline-block; }
+.hero__sub { margin-top: 24px; font-size: 16px; line-height: 24px; color: rgba(255, 255, 255, 0.78); }
+.hero__ctas { display: flex; gap: 8px; margin-top: 40px; }
+.trust-row { display: flex; gap: 40px; margin-top: 48px; }
+.trust-row li { display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; color: rgba(255, 255, 255, 0.6); white-space: nowrap; }
+
+.hero__illustration { position: absolute; bottom: 0; left: calc(50% - 720px); z-index: 1; }
+.hero__phone { position: absolute; bottom: 0; left: calc(50% - 243px); z-index: 2; }
+
+
+.float-chip {
+  position: absolute;
+  top: var(--y);
+  left: calc(50% - 720px + var(--x));
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 12px 16px rgba(0, 13, 51, 0.25));
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.float-chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--dot); flex: none; }
+
+.scroll-cue {
+  position: absolute;
+  top: 868px;
+  left: calc(50% - 640px);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+.scroll-cue__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   Portfolio Analyser — 950 → 2752
+   ========================================================= */
+.analyser { height: 1802px; }
+.beam__phone { position: absolute; top: 0; left: 0; }
+.beam__track {
+  position: absolute;
+  top: 440px;
+  left: 243px;
+  width: 1px;
+  height: 1060px;
+  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0 4px, transparent 4px 12px);
+}
+
+.intro-row { width: 1277px; display: flex; justify-content: space-between; align-items: flex-start; }
+.intro-row__left { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; width: 234px; }
+.intro-row__right { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; width: 328px; }
+.text-link {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--blue-600);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--blue-600);
+}
+
+.step__title { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gap); }
+.step-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.48px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.step__card { z-index: 1; }
+
+/* =========================================================
+   Sign up (171:13137) — 2752 → 3712
+   ========================================================= */
+.signup {
+  height: 960px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--white);
+}
+/* Inner panel 171:13141: y −37, 1439 × 997, radius 32. Fill layers (top → bottom):
+   #f7f7fa fade, blue→white wash at 80%, then a 0.42-scale halftone of 8px #005ecc dots */
+.signup::before {
+  content: "";
+  position: absolute;
+  top: -36.97px;
+  left: 0.5px;
+  width: 1439px;
+  height: 997px;
+  border-radius: 32px;
+  background:
+    linear-gradient(180deg, #f7f7fa 41.99%, rgba(255, 255, 255, 0) 110.45%),
+    linear-gradient(0deg, rgba(153, 204, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 95.28%),
+    radial-gradient(circle at 1.68px 1.68px, var(--blue-600) 1.6px, transparent 1.75px) 0 0 / 5.28px 5.28px,
+    var(--white);
+}
+.signup__copy { display: flex; flex-direction: column; align-items: flex-start; }
+.signup__title { margin-top: 20px; white-space: nowrap; }
+.signup__copy .body-16 { margin-top: 20px; }
+.signup-form { display: flex; flex-direction: column; gap: 12px; width: 360px; }
+.signup-form__label { font-weight: 600; font-size: 14px; color: var(--ink); }
+.phone-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 56px;
+  padding: 0 20px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--white);
+}
+.phone-field:focus-within { border-color: var(--blue-600); }
+.phone-field__prefix { font-weight: 600; font-size: 16px; color: var(--ink); }
+.phone-field__divider { width: 1px; height: 20px; background: var(--line); }
+.phone-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 16px;
+  letter-spacing: 0.96px;
+  color: var(--ink);
+}
+.phone-field input::placeholder { color: var(--ink-4); }
+.signup-form__legal { font-size: 12px; line-height: 16px; color: var(--ink-3); }
+.signup-form.is-invalid .phone-field { border-color: #e5484d; }
+
+/* =========================================================
+   "0" transition — 3712 → 4410
+   ========================================================= */
+.zero-intro { height: 698px; }
+.zero-intro__ring { overflow: visible; }
+.zero-intro__ring circle { fill: none; stroke: var(--blue-600); stroke-width: 3; }
+.zero-intro__figure {
+  font-weight: 200;
+  font-size: 200px;
+  line-height: 220px;
+  letter-spacing: -10px;
+  color: var(--blue-600);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Offers – Legend style (171:13573) — 4410 → 5370
+   ========================================================= */
+.offers {
+  height: 960px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--grad-dark);
+  color: var(--white);
+}
+.offers__lines span { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.06); }
+.offers__lines span:nth-child(1) { left: 80px; }
+.offers__lines span:nth-child(2) { left: 480px; }
+.offers__lines span:nth-child(3) { left: 960px; }
+.offers__lines span:nth-child(4) { left: 1360px; }
+.offers__halo { position: absolute; top: 96px; left: 336px; }
+
+.eyebrow { display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.5px; color: rgba(255, 255, 255, 0.6); }
+.trust-list { display: flex; flex-direction: column; gap: 14px; }
+.trust-list li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255, 255, 255, 0.72); }
+
+.zero-card {
+  width: 387px;
+  height: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 40px 36px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 40px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+}
+.tag-lime {
+  padding: 8px 12px;
+  border-radius: 24px;
+  background: var(--lime);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.48px;
+  color: var(--ink);
+}
+/* Figma line box is exactly 176px tall; the ₹ (80px) shares the 0's baseline */
+.zero-card__amount { display: flex; align-items: baseline; width: 200.29px; height: 176px; font-weight: 200; font-size: 176px; line-height: 176px; letter-spacing: -8px; white-space: nowrap; }
+.zero-card__rupee { font-size: 80px; }
+.zero-card__details { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.zero-card__list li {
+  padding: 13px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.accordion { width: 360px; }
+.accordion__item { border-top: 1px solid rgba(255, 255, 255, 0.18); }
+.accordion__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 22px 0;
+  border: 0;
+  background: none;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+  text-align: left;
+  cursor: pointer;
+}
+.accordion__price { margin-right: 12px; font-weight: 300; font-size: 20px; letter-spacing: 0; color: var(--lime); }
+.accordion__icon::before { content: "+"; font-weight: 300; font-size: 20px; color: rgba(255, 255, 255, 0.7); }
+.accordion__item.is-open .accordion__icon::before { content: "−"; }
+.accordion__body { display: none; flex-direction: column; gap: 10px; margin-top: -12px; padding-bottom: 22px; }
+.accordion__item.is-open .accordion__body { display: flex; }
+.accordion__body p { width: 320px; font-size: 14px; line-height: 22px; color: rgba(255, 255, 255, 0.6); }
+.accordion__body .fineprint { width: 340px; line-height: 16px; color: var(--ink-4); white-space: nowrap; }
+
+/* =========================================================
+   Investment solutions — 5370 → 8957
+   ========================================================= */
+.solutions { height: 3587px; }
+.section-head { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+.section-head__title { margin-bottom: 8px; letter-spacing: -2.56px; }
+.section-head .body-16 { width: 576px; }
+
+.solution__title { display: flex; align-items: center; gap: 16px; }
+.solution__title h3 { width: 319.79px; }
+.solution__title--top { align-items: flex-start; }
+.solution__phone { z-index: 1; }
+.solution__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; width: 328px; }
+.link-pill {
+  padding: 12px 24px;
+  border-radius: 24px;
+  background: var(--pill);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink);
+  white-space: pre;
+}
+.link-pill:hover { background: #e3f1ff; }
+
+/* =========================================================
+   App banner (171:13643) — 8957 → 9829
+   ========================================================= */
+.app-banner {
+  height: 872px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(126.28deg, var(--navy-800) 0%, var(--blue-700) 46.15%, var(--blue-400) 76.92%);
+  color: var(--white);
+}
+.app-banner__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.app-banner__hand { position: absolute; top: 0; left: 327.36px; width: 785.28px; height: 871.76px; }
+.app-banner__text { width: 440px; font-size: 16px; line-height: 24px; color: rgba(255, 255, 255, 0.75); }
+
+/* =========================================================
+   Product ticker (175:11214) — 9930 → 10002
+   ========================================================= */
+.ticker {
+  height: 72px;
+  margin-top: 101px;
+  overflow: hidden;
+  border-top: 1px solid rgba(10, 31, 68, 0.1);
+  border-bottom: 1px solid rgba(10, 31, 68, 0.1);
+  background: var(--white);
+}
+.ticker__track {
+  display: flex;
+  width: max-content;
+  margin-left: calc(50% - 780px); /* row starts at x −60 of the 1440 frame */
+  padding-top: 18px;
+  animation: marquee 40s linear infinite;
+}
+.ticker:hover .ticker__track { animation-play-state: paused; }
+.ticker__row { display: flex; align-items: center; white-space: nowrap; }
+.ticker__row li { display: flex; align-items: center; font-weight: 300; font-size: 22px; letter-spacing: -0.4px; color: rgba(10, 31, 68, 0.8); }
+.ticker__row li::after { content: "✦"; margin: 0 28px; font-weight: 400; font-size: 14px; letter-spacing: 0; color: var(--blue-600); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* =========================================================
+   Footer (171:14027) — 10098 → 11032
+   ========================================================= */
+.footer-bleed {
+  position: relative;
+  margin-top: 96px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--navy-900) 0%, var(--navy-800) 55%, var(--blue-700) 100%);
+  color: var(--white);
+}
+.footer {
+  height: 934px;
+  padding-top: 180.95px;
+}
+/* hairline and stripes run the full width of the bleed */
+.footer__rule,
+.footer__stripes { left: calc(720px - 50vw / var(--fit, 1)); right: calc(720px - 50vw / var(--fit, 1)); }
+.footer__wordmark-mask { width: 1392.38px; height: 135.24px; margin: 0 auto; overflow: hidden; }
+.footer__wordmark { width: 1392.38px; height: 135.24px; }
+.footer__rule { position: absolute; top: 334.29px; height: 0.95px; background: rgba(255, 255, 255, 0.2); }
+.footer__rule i { position: absolute; top: -1.91px; width: 38.1px; height: 2.86px; background: var(--lime); }
+.footer__rule i:nth-child(1) { left: 23.81px; }
+.footer__rule i:nth-child(2) { left: 457.14px; }
+.footer__rule i:nth-child(3) { left: 1077.14px; }
+
+.footer__brand { display: flex; flex-direction: column; align-items: flex-start; width: 391.43px; }
+.footer__brand p { margin-top: 22.86px; font-size: 15.24px; line-height: 22.86px; }
+.btn--footer { height: 53.33px; margin-top: 38.1px; padding: 11.43px 38.1px; border-width: 0.95px; border-radius: 38.1px; font-size: 11.43px; line-height: 15.24px; }
+.footer__links h4 { font-weight: 600; font-size: 11.43px; letter-spacing: 0.57px; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); }
+.footer__links ul { display: flex; flex-direction: column; gap: 5.71px; margin-top: 16px; }
+.footer__links a { font-weight: 300; font-size: 20.95px; line-height: 26.67px; letter-spacing: -0.38px; }
+.footer__links a:hover { color: var(--lime); }
+.footer__legal { display: flex; flex-direction: column; gap: 3.82px; }
+.footer__legal p { font-size: 11.43px; line-height: 17.14px; color: var(--ink-4); }
+.footer__stripes {
+  position: absolute;
+  top: 749.52px;
+  height: 184.76px;
+  background: repeating-linear-gradient(to bottom, transparent 0 3.81px, rgba(255, 255, 255, 0.22) 3.81px 4.76px);
+}
+
+/* =========================================================
+   Phones (<768px): single column
+   ========================================================= */
+@media (max-width: 767px) {
+  .column-grid,
+  .beam,
+  .connector,
+  .offers__lines,
+  .offers__halo,
+  .float-chip,
+  .scroll-cue,
+  .zero-intro,
+  .nav__links { display: none; }
+
+  .frame { width: auto; height: auto; border-radius: 0; }
+  .pos { position: static; width: auto; }
+
+  .nav { width: auto; padding: 20px 16px; }
+  .hero { height: auto; }
+  .hero__copy { position: static; width: auto; padding: 40px 16px 0; }
+  .hero__title { font-size: 40px; line-height: 44px; letter-spacing: -1.6px; }
+  .hero__ctas { flex-wrap: wrap; justify-content: center; }
+  .trust-row { flex-wrap: wrap; justify-content: center; gap: 12px 24px; }
+  .hero__illustration { left: 50%; transform: translateX(-50%); }
+  .hero__phone { position: relative; left: auto; margin: 32px auto 0; width: 100%; max-width: 488px; height: auto; }
+
+  .display-64 { font-size: 40px; line-height: 44px; letter-spacing: -1.6px; }
+  .display-56 { font-size: 36px; line-height: 42px; letter-spacing: -1.2px; }
+  .display-48 { font-size: 34px; line-height: 40px; letter-spacing: -1px; }
+
+  .analyser,
+  .solutions { display: flex; flex-direction: column; gap: 24px; padding: 56px 16px; }
+  .intro-row { width: auto; flex-direction: column; gap: 24px; }
+  .intro-row__left,
+  .intro-row__right { width: auto; }
+  .steps,
+  .solution-rows { display: flex; flex-direction: column; gap: 56px; margin-top: 32px; }
+  .step,
+  .solution { display: flex; flex-direction: column; gap: 16px; }
+  .step__card,
+  .solution__phone { align-self: center; }
+  .solution__phone { width: 100%; max-width: 392px; height: auto; order: 3; }
+  .solution__title h3 { width: auto; }
+  .solution__copy { width: auto; }
+  .section-head .body-16 { width: auto; }
+
+  .signup { display: flex; flex-direction: column; gap: 32px; padding: 48px 16px; }
+  .signup::before { top: 0; left: 0; width: 100%; height: 100%; border-radius: 0; }
+  .signup > * { position: relative; }
+  .signup__title { white-space: normal; }
+  .signup__phone { align-self: center; width: 100%; max-width: 390px; height: auto; }
+  .signup-form { width: 100%; }
+
+  .offers { display: flex; flex-direction: column; gap: 24px; padding: 56px 16px; }
+  .trust-list { margin-bottom: 16px; }
+  .zero-card { width: 100%; max-width: 387px; height: 520px; align-self: center; }
+  .accordion { width: 100%; }
+  .accordion__body p,
+  .accordion__body .fineprint { width: auto; white-space: normal; }
+
+  .app-banner { display: flex; flex-direction: column; gap: 20px; padding: 56px 16px 0; }
+  .app-banner__text br { display: none; }
+  .app-banner__hand { position: relative; left: auto; width: 100%; height: auto; order: 5; }
+
+  .ticker__track { margin-left: 0; }
+
+  .footer-bleed { margin-top: 64px; }
+  .footer { padding: 56px 16px 220px; }
+  .footer__rule,
+  .footer__stripes { left: 0; right: 0; }
+  .footer__wordmark-mask,
+  .footer__wordmark { width: 100%; height: auto; }
+  .footer__rule { position: relative; top: auto; margin: 16px 0 32px; }
+  .footer__rule i:nth-child(n + 2) { display: none; }
+  .footer__brand,
+  .footer__links,
+  .footer__legal { margin-bottom: 40px; }
+  .footer__brand { width: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ticker__track { animation: none; }
+}
+
+/* =========================================================
+   Motion layer (motion.js) — modelled on legend.xyz
+   Resting states are the Figma layout; these rules only add
+   the moving parts. Nothing here applies without JS.
+   ========================================================= */
+
+/* Hold intro elements until the entrance timeline starts */
+html.motion-pending .nav,
+html.motion-pending .hero__copy,
+html.motion-pending .hero__phone,
+html.motion-pending .hero__illustration,
+html.motion-pending .float-chip,
+html.motion-pending .scroll-cue { visibility: hidden; }
+
+/* Live status dots — Legend's "ping" */
+.float-chip i { position: relative; }
+.motion .float-chip i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--dot);
+  animation: ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.motion .float-chip--2 i::after { animation-delay: 0.8s; }
+.motion .float-chip--3 i::after { animation-delay: 1.6s; }
+@keyframes ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
+
+.motion .scroll-cue__icon img { animation: cue 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes cue { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(3px); } }
+
+/* Fixed nav that turns into a glass pill and flips theme per section (desktop) */
+.motion-desktop .nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: top 0.6s cubic-bezier(0.19, 1, 0.22, 1), width 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+    height 0.6s cubic-bezier(0.19, 1, 0.22, 1), padding 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+    background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  border: 1px solid transparent;
+}
+.motion-desktop .nav.is-floating {
+  top: 14px;
+  width: 1277px;
+  height: 68px;
+  padding: 0 10px 0 22px;
+  border-radius: 40px;
+  background: rgba(6, 14, 38, 0.86);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.motion-desktop .nav.is-floating[data-theme="light"] {
+  background: rgba(10, 31, 68, 0.92);
+  border-color: rgba(10, 31, 68, 0.2);
+  box-shadow: 0 12px 32px rgba(10, 31, 68, 0.18);
+}
+.motion-desktop .nav.is-floating .btn--nav { height: 48px; }
+
+/* Glint sweep across screens/cards when they change */
+.glint {
+  position: absolute;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: var(--r, 16px);
+}
+.glint i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+  transform: translateX(-120%);
+}
+
+/* Persistent phone in the Investment solutions beam (desktop) */
+.phone-stage { pointer-events: none; z-index: 1; }
+.phone-stage__sticky {
+  position: sticky;
+  top: calc(50vh / var(--fit, 1) - 401px);
+  width: 392px;
+  height: 802.5px;
+}
+.phone-stage__sticky img { position: absolute; inset: 0; }
+.motion-desktop .solution__phone.is-staged { visibility: hidden; }
+.motion-desktop .solution .solution__title,
+.motion-desktop .solution .solution__copy,
+.motion-desktop .solution .connector { transition: opacity 0.7s cubic-bezier(0.19, 1, 0.22, 1); }
+.motion-desktop .solution:not(.is-active) .solution__title,
+.motion-desktop .solution:not(.is-active) .solution__copy,
+.motion-desktop .solution:not(.is-active) .connector { opacity: 0.22; }
+
+/* Footer stripes: a slow glow travelling down the lines (Legend's line-glow) */
+.motion .footer__stripes::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(222, 245, 23, 0.55) 50%, transparent 100%) 0 -60px / 100% 60px no-repeat;
+  -webkit-mask: repeating-linear-gradient(to bottom, transparent 0 3.81px, #000 3.81px 4.76px);
+  mask: repeating-linear-gradient(to bottom, transparent 0 3.81px, #000 3.81px 4.76px);
+  animation: line-glow 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes line-glow { to { background-position: 0 245px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .motion .float-chip i::after,
+  .motion .scroll-cue__icon img,
+  .motion .footer__stripes::after { animation: none; }
+}
+
+/* =========================================================
+   STORY — desktop scroll story (motion.js builds the timeline)
+   Hidden unless html.story-on; the static sections are the fallback.
+   ========================================================= */
+.story { display: none; }
+
+html.story-on .story {
+  display: block;
+  position: relative;
+  z-index: 2;
+  margin-top: -950px;            /* the stage starts under the hero so the phone can rise out of it */
+  height: 16000px;               /* replaced by motion.js with the real scroll length */
+  pointer-events: none;
+}
+html.story-on .analyser,
+html.story-on .signup,
+html.story-on .zero-intro,
+html.story-on .offers,
+html.story-on .solutions,
+html.story-on .app-banner,
+html.story-on .s-phone { display: none; } /* hero keeps its own phone, clipped at the hero edge (Figma) */
+
+.story__stage {
+  position: sticky;
+  top: 0;
+  height: calc(100vh / var(--fit, 1));
+  overflow: hidden;
+  visibility: hidden;            /* revealed once the timeline has set every start state */
+}
+html.story-ready .story__stage { visibility: visible; }
+.story__frame { position: relative; width: var(--frame); height: 100%; margin: 0 auto; }
+
+/* Stage element: --x from the frame's left edge, --y from the stage's vertical centre */
+.s {
+  position: absolute;
+  left: var(--x, 0);
+  top: calc(50% + var(--y, 0px));
+  width: var(--w, auto);
+}
+.story a, .story button, .story input, .story label, .story form { pointer-events: auto; }
+
+/* Layer order */
+.s-tube { z-index: 1; }
+.s-intro-left, .s-intro-right { z-index: 2; }
+.s-step .s { z-index: 3; }
+.s-phone { z-index: 5; top: calc(50% + var(--y) + var(--rise, 0) * 9.08px); } /* --rise: entrance only (% of phone height) */
+.s-card { z-index: 6; border-radius: 16px; }
+.s-tube__inner .s { top: var(--y); } /* inner has no height: --y is an absolute offset */
+.s-signup { z-index: 10; }
+.s-card--3 { z-index: 12; }
+.s-dot { z-index: 13; }
+.s-offers { z-index: 20; }
+.s-mark { z-index: 22; }
+.s-zcard { z-index: 24; }
+.s-ring { z-index: 25; }
+.s-zero { z-index: 26; }
+.s-sol-head, .s-row .s { z-index: 30; }
+.s-banner { z-index: 31; }
+.s-sol-phone { z-index: 33; }
+
+
+/* The tube: beam gradient, grows downward (--reveal) and later becomes the banner (--banner) */
+.s-tube {
+  width: 486px;
+  height: 5000px;                /* set by motion.js to cover its scroll distance */
+  border-radius: 243px;
+  /* The pill is a hard mask. overflow:hidden alone fails on transformed children in Safari,
+     so clip-path + a mask + isolation make the clip unconditional. */
+  overflow: hidden;
+  clip-path: inset(0 round 243px);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: transform;
+}
+.s-tube__fill {
+  position: absolute;
+  inset: 0;
+  /* Figma beam gradient over its real 1647px, then the deep navy continues */
+  background: linear-gradient(180deg, var(--blue-400) 0px, var(--blue-700) 461px, var(--navy-800) 1021px, var(--navy-900) 1647px);
+}
+.s-tube--sol { z-index: 1; }
+.s-tube__inner { position: absolute; top: 0; left: 0; will-change: transform; }
+.s-tube__phone { position: absolute; left: -1.7px; top: -404.4px; will-change: transform; } /* Figma: phone group 171:11066 vs beam top */
+.s-tube__track {
+  position: absolute;
+  z-index: 1;
+  top: 1000px;
+  bottom: 300px;
+  left: 242.5px;
+  width: 1px;
+  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0 4px, transparent 4px 12px);
+}
+
+.s-intro-left { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.s-intro-right { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.s .line,
+.s-panel .line { display: block; overflow: hidden; padding: 0.12em 0 0.2em; margin: -0.12em 0 -0.2em; }
+.s .line > span,
+.s-panel .line > span { display: inline-block; }
+.s-mask { overflow: hidden; padding: 0 0.1em 0.2em 0; margin-bottom: -0.2em; }
+.s-mask h3 { will-change: transform; }
+
+/* Panels reuse the Figma section styling */
+.s-panel { width: 1440px; height: 960px; border-radius: 24px; }
+.s-signup { background: var(--white); }
+.s-signup::before {
+  /* same wash as 171:13141 (y −37, 997 tall), re-expressed inside the 960px panel */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(180deg, #f7f7fa 39.75%, rgba(255, 255, 255, 0) 110.85%),
+    linear-gradient(0deg, rgba(153, 204, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 98.96%),
+    radial-gradient(circle at 1.68px 1.68px, var(--blue-600) 1.6px, transparent 1.75px) 0 0 / 5.28px 5.28px,
+    var(--white);
+}
+.s-offers { background: var(--grad-dark); color: var(--white); }
+.s-offers .offers__halo { position: absolute; top: 96px; left: 336px; }
+
+/* Anchor halo behind the sign-up phone (grows out of the Optimise dot) */
+.s-anchor {
+  position: absolute;
+  left: calc(721.2px - 460px);
+  top: calc(461.6px - 460px);
+  width: 920px;
+  height: 920px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 94, 204, 0.42) 0%, rgba(46, 139, 255, 0.24) 34%, rgba(46, 139, 255, 0.08) 54%, rgba(46, 139, 255, 0) 70%);
+}
+.s-dot {
+  /* starts as the card's "Optimise Now" button, shrinks into the dot */
+  width: 144px;
+  height: 32px;
+  border-radius: 4px;
+  background: var(--blue-600);
+  opacity: 0;
+}
+
+.s-zcard { width: 387px; color: var(--white); }
+.s-ring { overflow: visible; }
+.s-ring ellipse { fill: none; stroke: var(--blue-600); stroke-width: 3; }
+.s-zero {
+  font-weight: 200;
+  font-size: 200px;
+  line-height: 220px;
+  letter-spacing: -10px;
+  color: var(--blue-600);
+  white-space: nowrap;
+}
+.s-zslot { visibility: hidden; }
+
+.s-sol-phone { width: 393px; height: 803px; }
+.s-sol-phone img { position: absolute; inset: 0; }
+.s-wipe { position: absolute; inset: 0; overflow: hidden; will-change: transform; }
+.s-wipe img { will-change: transform; }
+.s-row .solution__title { display: flex; align-items: center; gap: 16px; }
+.s-row .solution__title--top { align-items: flex-start; }
+.s-row .solution__title h3 { width: 319.79px; }
+.s-row .solution__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; width: 328px; }
+
+.s-banner {
+  height: 872px;
+  background: linear-gradient(126.28deg, var(--navy-800) 0%, var(--blue-700) 46.15%, var(--blue-400) 76.92%);
+  color: var(--white);
+}
+.s-banner .s-hand { position: absolute; top: 0; left: 327.36px; width: 785.28px; height: 871.76px; }
+
+/* After the story the stage scrolls away; keep the Figma gap between banner and ticker */
+html.story-on .ticker { margin-top: max(0px, calc(101px - (50vh / var(--fit, 1) - 436px))); }
+
+/* Performance: layers that move every frame get their own compositor layer */
+.motion-desktop .hero__copy,
+.motion-desktop .hero__illustration,
+.motion-desktop .float-chip,
+.s-phone, .s-card, .s-panel, .s-dot, .s-mark, .s-zcard, .s-sol-phone,
+.s-intro-left, .s-intro-right, .s-sol-head,
+.s-panel .signup__phone, .s-anchor, .glint i { will-change: transform, opacity; }
